@@ -1,48 +1,45 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
-import Toollist from './component/Toollist';
-import JokerList from './component/JokerList';
-import * as jokerApi from './api/joker';
+import Main from './component/Main';
+import Login from './component/Login';
 
-// eslint-disable-next-line react/prefer-stateless-function
-class Application extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      jokers: [],
+      user: null,
     };
   }
 
-  async onRandomJoker() {
-    try {
-      const jokers = await jokerApi.RandomJoker(5);
-      this.setState({
-        jokers,
-      });
-    } catch (err) {
-      console.error(err);
-    }
+  onUserLogin(response) {
+    this.setState({
+      user: response.data,
+    });
   }
 
   render() {
-    const { jokers } = this.state;
+    const { user } = this.state;
     return (
-      <div className="app">
-        <div className="toollist">
-          <Toollist randomJoker={() => this.onRandomJoker()} />
+      <Router className="app">
+        <div>
+          <Route
+            exact
+            path="/"
+            render={props => <Main {...props} user={user} />}
+          />
+          <Route
+            path="/login"
+            render={props => <Login {...props} loginCb={res => this.onUserLogin(res)} />}
+          />
         </div>
-        <div className="joker-list">
-          <JokerList jokers={jokers} />
-        </div>
-      </div>
+      </Router>
     );
   }
 }
 
-// ========================================
-
 ReactDOM.render(
-  <Application />,
+  <App />,
   document.getElementById('root'),
 );

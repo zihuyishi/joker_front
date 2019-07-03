@@ -1,10 +1,8 @@
-import { fetch } from 'whatwg-fetch';
+import { Get } from './api';
 
 export async function RandomJoker(count) {
   const cnt = count || 10;
-  const response = await fetch(`/api/random?count=${cnt}`);
-  const result = await response.json();
-  console.log(result);
+  const result = await Get(`/api/random?count=${cnt}`);
   if (result.code !== 0) {
     throw new Error(`get random joker fail with ${result.code}`);
   } else {
@@ -13,8 +11,7 @@ export async function RandomJoker(count) {
 }
 
 export async function GetJokerById(id) {
-  const response = await fetch(`/api/joker/${id}`);
-  const result = await response.json();
+  const result = await Get(`/api/joker/${id}`);
   if (result.code !== 0) {
     throw new Error('get joker error');
   } else {

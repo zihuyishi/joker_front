@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Joker({ joker }) {
-  const { content } = joker;
-  return (
-    <div className="joker-row">
-      {content}
-    </div>
-  );
+export default class Joker extends React.Component {
+  render() {
+    const { joker } = this.props;
+    const { content } = joker;
+    return (
+      <div className="joker-row">
+        {content}
+      </div>
+    );
+  }
 }
 
 Joker.propTypes = {
