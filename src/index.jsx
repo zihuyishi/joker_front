@@ -15,7 +15,7 @@ class App extends React.Component {
 
   onUserLogin(response) {
     this.setState({
-      user: response.data,
+      user: response,
     });
   }
 

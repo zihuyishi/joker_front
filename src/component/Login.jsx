@@ -8,22 +8,30 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       isLogin: false,
-      name: null,
-      password: null,
+      name: '',
+      password: '',
     };
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   async onClickLogin() {
     const { loginCb } = this.props;
     const { name, password } = this.state;
 
-    const result = await userApi.Login(name, password);
-    if (result.code === 0) {
-      loginCb(result);
+    try {
+      const user = await userApi.Login(name, password);
+      loginCb(user);
       this.setState({
         isLogin: true,
       });
+    } catch (err) {
+      console.error('login error', err);
     }
+  }
+
+  handleInputChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   render() {
@@ -31,9 +39,9 @@ export default class Login extends React.Component {
     if (!isLogin) {
       return (
         <form>
-          <input type="text" id="input-name" value={name} placeholder="请输入用户名" />
-          <input type="password" id="input-password" value={password} placeholder="请输入密码" />
-          <input type="button" id="input-login" value="登录" onClick={() => this.onClickLogin()} />
+          <input type="text" name="name" value={name} onChange={this.handleInputChange} placeholder="请输入用户名" />
+          <input type="password" name="password" value={password} onChange={this.handleInputChange} placeholder="请输入密码" />
+          <input type="button" value="登录" onClick={() => this.onClickLogin()} />
         </form>
       );
     }
