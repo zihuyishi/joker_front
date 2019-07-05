@@ -17,6 +17,7 @@ export default class NavigationBar extends React.Component {
       content = (
         <div>
           <p>{hello}</p>
+          <a href="/newjoker">新建笑话</a>
           <button type="button" onClick={() => this.onClickLogout()}>注销</button>
         </div>
       );

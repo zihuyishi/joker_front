@@ -6,7 +6,7 @@ export default class Joker extends React.Component {
     const { joker } = this.props;
     const { content } = joker;
     return (
-      <div className="joker-row">
+      <div className="square">
         {content}
       </div>
     );

@@ -14,7 +14,8 @@ export default class Login extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  async onClickLogin() {
+  async onClickLogin(event) {
+    event.preventDefault();
     const { loginCb } = this.props;
     const { name, password } = this.state;
 
@@ -41,7 +42,7 @@ export default class Login extends React.Component {
         <form>
           <input type="text" name="name" value={name} onChange={this.handleInputChange} placeholder="请输入用户名" />
           <input type="password" name="password" value={password} onChange={this.handleInputChange} placeholder="请输入密码" />
-          <input type="button" value="登录" onClick={() => this.onClickLogin()} />
+          <input type="submit" value="登录" onClick={e => this.onClickLogin(e)} />
         </form>
       );
     }
