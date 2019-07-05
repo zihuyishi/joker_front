@@ -12,6 +12,13 @@ export async function Login(name, password) {
   }
 }
 
+export async function Logout() {
+  const result = await Post('/api/logout', {});
+  if (result.code !== 0) {
+    throw new Error(`logout error with ${result.code}`);
+  }
+}
+
 export async function UserById(id) {
   const result = await Get(`/api/user/${id}`);
   if (result.code !== 0) {

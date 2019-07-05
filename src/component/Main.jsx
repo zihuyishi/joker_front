@@ -25,12 +25,12 @@ export default class Main extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, onLogout } = this.props;
     const { jokers } = this.state;
     return (
       <div>
         <div className="navigationBar">
-          <NavigationBar user={user} />
+          <NavigationBar user={user} onLogout={onLogout} />
         </div>
         <div className="toollist">
           <Toollist randomJoker={() => this.onRandomJoker()} />
@@ -47,6 +47,7 @@ Main.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }),
+  onLogout: PropTypes.func.isRequired,
 };
 
 Main.defaultProps = {

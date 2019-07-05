@@ -19,6 +19,12 @@ class App extends React.Component {
     });
   }
 
+  onUserLogout() {
+    this.setState({
+      user: null,
+    });
+  }
+
   render() {
     const { user } = this.state;
     return (
@@ -27,7 +33,7 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={props => <Main {...props} user={user} />}
+            render={props => <Main {...props} user={user} onLogout={() => this.onUserLogout()} />}
           />
           <Route
             path="/login"
